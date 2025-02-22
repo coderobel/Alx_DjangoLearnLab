@@ -4,7 +4,7 @@ from .models import Book, Author, Library
 library_name = 'Central Library'  # Example library name
 
 # First, get the Author object for 'John Doe'
-author = Author.objects.get(name='John Doe')
+author = Author.objects.get(name='author_name')
 
 # Then, filter the books by this Author object
 books_by_author = Book.objects.filter(author=author)
