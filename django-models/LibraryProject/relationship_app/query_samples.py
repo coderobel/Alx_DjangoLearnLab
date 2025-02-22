@@ -1,4 +1,4 @@
-from .models import Book, Author, Library
+from .models import Book, Author, Library,Librarian
 
 # Define or pass library_name
 library_name = 'Central Library'  # Example library name
@@ -21,3 +21,4 @@ for book in all_books_in_library:
     print(book)
 for author in authors:
     print(author)
+librarian = Librarian.objects.get(library='')
