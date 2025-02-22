@@ -13,4 +13,9 @@ books_by_author = Book.objects.filter(author=author)
 library = Library.objects.get(name=library_name)
 
 # Retrieve all books in the specific library
-all_books_in_library = library.books.all()
+books = Book.objects.all()
+authors = Author.objects.all()
+for book in books:
+    print(book)
+for author in authors:
+    print(author)
