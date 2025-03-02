@@ -10,6 +10,7 @@ class Book(models.Model):
     publication_year = models.IntegerField()
     permission = Permission.objects.get(codename = 'can_view')
     permission = Permission.objects.get(codename = 'can_delete')
+    permission = Permission.objects.get(codename = 'can_create')
 class CustomUser(AbstractUser):
     date_of_birth = models.CharField(max_length=20)
     profile_photo = models.CharField(max_length = 20)
