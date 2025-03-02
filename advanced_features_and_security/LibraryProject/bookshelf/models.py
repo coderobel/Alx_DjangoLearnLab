@@ -1,12 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import Permission
 # Create your models here.
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
+    permission = Permission.objects.get(codename = 'can_view')
+    permission = Permission.objects.get(codename = 'can_delete')
 class CustomUser(AbstractUser):
     date_of_birth = models.CharField(max_length=20)
     profile_photo = models.CharField(max_length = 20)
