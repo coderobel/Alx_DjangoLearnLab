@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from .forms import ExamlpeForm
 from .models import Book
 
 # Create your views here.
