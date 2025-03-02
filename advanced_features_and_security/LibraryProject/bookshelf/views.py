@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .forms import ExamlpeForm
 from .models import Book
+from .forms import ExampleForm
 
 # Create your views here.
 def book_list(request):
