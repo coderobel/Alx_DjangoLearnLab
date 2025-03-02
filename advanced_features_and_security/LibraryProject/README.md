@@ -1,0 +1,1 @@
+This project creates a new django project called LibraryProject.
