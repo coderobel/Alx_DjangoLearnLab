@@ -14,7 +14,7 @@ class BookSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Publication year cannot be in the future.")
         return value
 
-class Authorserializer(serializers.Serializer):
+class Authorserializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ['name']
