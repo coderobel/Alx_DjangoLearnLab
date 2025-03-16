@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import permissions, generics
-from rest_framework import django_filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Book
-from .serializers import BookSerializer
+from .serializers import BookSerializer,BookFilter
+from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 class IsAuthenticatedOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -14,6 +14,8 @@ class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = BookFilter
 class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from models import Author,Book
+import django_filters
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +21,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ['name']
+class BookFilter(django_filters.FilterSet):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'publication_year']
