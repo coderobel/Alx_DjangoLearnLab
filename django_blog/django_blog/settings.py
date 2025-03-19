@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_blog',
+    'blog',
 ];
 
 MIDDLEWARE = [
@@ -77,9 +78,9 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 DATABASES = {
     'default': {
 'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydatabase',
-        'USER': 'mydatabaseuser',
-        'PASSWORD': 'mypassword',
+        'NAME': 'root',
+        'USER': 'robel',
+        'PASSWORD': 'mysql@273111998',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -144,4 +145,6 @@ TEMPLATES = [
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+LOGIN_REDIRECT_URL = "/accounts/profile"
+LOGOUT_REDIRECT_URL = "/accounts/profile"
 
