@@ -4,8 +4,10 @@ from django.contrib.auth.forms import User
 from django import forms
 from .forms import ProfileForm
 from django.contrib import messages
-from django.views.generic import CreateView
+from django.views.generic import CreateView,ListView,DetailView,UpdateView,DeleteView
 from django.urls import reverse_lazy
+from .models import BlogPost
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 class SignUpView(CreateView):
@@ -32,4 +34,41 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=request.user.profile)
     return render(request, 'edit_profile.html', {'form': form})
+class blogpostListView(ListView):
+    model = BlogPost
+    template = 'blogpost_list.html'
+    context_object_name = 'posts'
+    ordering = ['-created_at']
+class blogpostDetailView(DetailView):
+    model = BlogPost
+    template_name = 'blogpost_detail.html'
+    context_object_name = 'post'
+class blogpostCreateView(LoginRequiredMixin, CreateView):
+    model = BlogPost
+    fields = ['title', 'content']
+    template_name = 'blogpost_form.html'
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+class blogpostUpdateView(UpdateView):
+    model = BlogPost
+    fields = ['title', 'content']
+    template_name = 'blogpost_form.html'  # Template for editing a post
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+class blogpostDeleteView(DeleteView):
+    model = BlogPost
+    template_name = 'blogpost_confirm_delete.html'  # Confirmation template
+    success_url = reverse_lazy('blogpost-list')  # Redirect after deletion
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+        

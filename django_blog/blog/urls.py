@@ -3,7 +3,13 @@ from django.views.generic import TemplateView
 from .views import SignUpView,profile_view
 from django.contrib.auth import views as auth_views
 from . import views
-
+from .views import (
+    blogpostListView,
+    blogpostDetailView,
+    blogpostCreateView,
+    blogpostUpdateView,
+    blogpostDeleteView,
+)
 
 urlpatterns = [
    # path('accounts/', include('django.contrib.auth.urls')),
@@ -15,4 +21,9 @@ urlpatterns = [
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
     path('register/', SignUpView.as_view(),  name='register'),
     path('profile/', profile_view, name = 'profile'),
+    path('', blogpostListView.as_view(), name='blogpost-list'),
+    path('<int:pk>/', blogpostDetailView.as_view(), name='blogpost-detail'),
+    path('new/', blogpostCreateView.as_view(), name='blogpost-create'),
+    path('<int:pk>/edit/', blogpostUpdateView.as_view(), name='blogpost-update'),
+    path('<int:pk>/delete/', blogpostDeleteView.as_view(), name='blogpost-delete'),
 ]
