@@ -123,7 +123,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR /'blog'/"templates/",
+    BASE_DIR /'blog'/'templates/',
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -145,6 +145,6 @@ TEMPLATES = [
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-LOGIN_REDIRECT_URL = "/accounts/profile"
-LOGOUT_REDIRECT_URL = "/accounts/profile"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
