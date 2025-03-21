@@ -1,3 +1,12 @@
-<h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
-<p>By {{ post.author }}</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>By {{ post.author }} on {{ post.created_at }}</p>
+    <p>{{ post.content }}</p>
+</body>
+</html>
+
