@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 class SignUpView(CreateView):
     form_class = UserCreationForm  # Replace with your CustomUserCreationForm if you have one
     success_url = reverse_lazy('login')  # Redirect to login page after successful registration
-    template_name = 'register.html'
+    template_name = 'blog/register.html'
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -22,7 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'email', 'password1']
 @login_required
 def profile_view(request):
-    return render(request, 'profile.html')
+    return render(request, 'blog/profile.html')
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
@@ -33,20 +33,20 @@ def edit_profile(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=request.user.profile)
-    return render(request, 'edit_profile.html', {'form': form})
+    return render(request, 'blog/edit_profile.html', {'form': form})
 class blogpostListView(ListView):
     model = BlogPost
-    template = 'blogpost_list.html'
+    template = 'blog/post_list.html'
     context_object_name = 'posts'
     ordering = ['-created_at']
 class blogpostDetailView(DetailView):
     model = BlogPost
-    template_name = 'blogpost_detail.html'
+    template_name = 'blog/post_detail.html'
     context_object_name = 'post'
 class blogpostCreateView(LoginRequiredMixin, CreateView):
     model = BlogPost
     fields = ['title', 'content']
-    template_name = 'blogpost_form.html'
+    template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -54,7 +54,7 @@ class blogpostCreateView(LoginRequiredMixin, CreateView):
 class blogpostUpdateView(UpdateView):
     model = BlogPost
     fields = ['title', 'content']
-    template_name = 'blogpost_form.html'  # Template for editing a post
+    template_name = 'blog/post_form.html'  # Template for editing a post
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -65,7 +65,7 @@ class blogpostUpdateView(UpdateView):
         return self.request.user == post.author
 class blogpostDeleteView(DeleteView):
     model = BlogPost
-    template_name = 'blogpost_confirm_delete.html'  # Confirmation template
+    template_name = 'blog/post_confirm_delete.html'  # Confirmation template
     success_url = reverse_lazy('blogpost-list')  # Redirect after deletion
 
     def test_func(self):
