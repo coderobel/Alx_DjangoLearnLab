@@ -1,21 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Blog Post</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Create/Edit Post</title>
+    <link href="{% static 'django_select2/django_select2.css' %}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Update Blog Post</h1>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update</button>
-            <a href="{% url 'blogpost-update' pk=post.pk %}">Update Post</a>
-        </form>
-    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <script src="{% static 'django_select2/django_select2.js' %}"></script>
 </body>
 </html>
 

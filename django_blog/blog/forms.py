@@ -2,6 +2,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import Profile, Comment, Post
 from django.contrib.auth.models import User
+from taggit.forms import TagField
+from taggit.models import Tag
+from django_select2.forms import Select2TagWidget
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -33,9 +36,12 @@ class CommentForm(forms.ModelForm):
             raise forms.ValidationError("Author name cannot be empty.")
         return author
 class PostForm(forms.ModelForm):
+    tags = TagField(
+        widget=Select2TagWidget(
+            attrs={'data-placeholder': 'Add tags separated by commas'}
+        )
+    )
+    
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tags']  # Include 'tags'
-        widgets = {
-            'tags': forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas'}),
-        }
+        fields = ['title', 'content', 'tags']
