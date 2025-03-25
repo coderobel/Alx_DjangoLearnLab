@@ -1,12 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ post.title }}</title>
-</head>
-<body>
-    <h1>{{ post.title }}</h1>
-    <p>By {{ post.author }} on {{ post.created_at }}</p>
-    <p>{{ post.content }}</p>
-</body>
-</html>
+<h1>{{ blog_post.title }}</h1>
+<p>{{ blog_post.content }}</p>
+
+<h2>Comments</h2>
+<ul>
+    {% for comment in blog_post.comments.all %}
+        <li>
+            <strong>{{ comment.author }}:</strong> {{ comment.text }}
+            {% if comment.author == user %}
+                <a href="{% url 'comment-update' comment.pk %}">Edit</a>
+                <a href="{% url 'comment-delete' comment.pk %}">Delete</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<h3>Add a Comment</h3>
+<form method="post" action="{% url 'comment-create' blog_post.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
 
