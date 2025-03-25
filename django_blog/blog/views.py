@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import User
 from django import forms
-from .forms import ProfileForm
+from .forms import ProfileForm,PostForm
 from django.contrib import messages
 from django.views.generic import CreateView,ListView,DetailView,UpdateView,DeleteView
 from django.urls import reverse_lazy
-from .models import BlogPost,Comment
+from .models import BlogPost,Comment,Post
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -43,6 +43,7 @@ class blogpostListView(ListView):
 class blogpostDetailView(DetailView):
     model = BlogPost
     template_name = 'blog/post_detail.html'
+    form_class = PostForm
     context_object_name = 'post'
 class blogpostCreateView(LoginRequiredMixin, CreateView):
     model = BlogPost
@@ -102,3 +103,18 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return self.request.user == comment.author
         def get_success_url(self):
             return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
+        class PostCreateView(CreateView):
+            model = Post
+            form_class = PostForm
+            template_name = 'post_form.html'
+
+            def form_valid(self, form):
+                return super().form_valid(form)
+
+class PostUpdateView(UpdateView):
+        model = Post
+        form_class = PostForm
+        template_name = 'post_form.html'
+
+        def form_valid(self, form):
+            return super().form_valid(form)

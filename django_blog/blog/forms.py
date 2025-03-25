@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Profile, Comment
+from .models import Profile, Comment, Post
 from django.contrib.auth.models import User
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -32,4 +32,10 @@ class CommentForm(forms.ModelForm):
         if not author:
             raise forms.ValidationError("Author name cannot be empty.")
         return author
-    
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']  # Include 'tags'
+        widgets = {
+            'tags': forms.TextInput(attrs={'placeholder': 'Enter tags separated by commas'}),
+        }
