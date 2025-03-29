@@ -4,12 +4,12 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 class PostSerializer(serializers.ModelSerializer):
-    serializers.CharField(max_length=255)
+    serializers.CharField()
     class Meta:
         model = Post
         fields = ['bio', 'profile_picture', 'followers']
 class UserSerializer(serializers.ModelSerializer):
-    token = serializers.CharField(max_length=255,source='auth_token.key', read_only=True)
+    token = serializers.CharField()
 
     class Meta:
         model = get_user_model()
