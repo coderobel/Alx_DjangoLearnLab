@@ -9,7 +9,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ['bio', 'profile_picture', 'followers']
     class UserSerializer(serializers.ModelSerializer):
-        token = serializers.CharField(source='auth_token.key', read_only=True)
+        token = serializers.CharField(max_length=255,source='auth_token.key', read_only=True)
 
         class Meta:
             model = get_user_model()
